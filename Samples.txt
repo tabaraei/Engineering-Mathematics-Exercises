@@ -1,0 +1,42 @@
+----------------------------------------------
+step:
+u = @heaviside
+x = @(t) u(t) - u(t-1)
+h = @(t) u(t) - u(t-1);
+y = @(t) integral(@(T) x(t-T).*h(T) , 0,1);
+t = -2:0.01:4;
+for i=1:length(t)
+  f(i) = y(t(i));
+end
+plot(t,f);
+-----------------------------------------------
+ramp:
+u = @heaviside;
+x = @(t) u(t) - u(t-1);
+r = @(t) t.*u(t);
+h = @(t) r(t+1)-2*r(t)+r(t-1);
+y = @(t) integral(@(T) x(t-T).*h(T) , -1,1);
+t = -5:0.01:5;
+for i=1:length(t)
+  f(i) = y(t(i));
+end
+plot(t,f);
+-----------------------------------------------
+integral:
+g = @(a) integral(@(x) x*2, 0, a)
+-----------------------------------------------
+Furie integral:
+X = @(w) integral (@(t) exp(-1i*w*t).*exp(-t), 0, 100);
+w= -10:0.01:10;
+for i=1:length(w)
+    s(i) = X(w(i));
+end
+
+% mikhaim bar hasbe andaze o faz rasm konim
+% age bekhaim tabe mokhtalet rasm konim, bayad real(s), imag(s)
+a = angle(s); % zavie ro be radian tabdil mikone mirize tu a
+b = abs(s);   % andaze ro hesab mikone
+figure();
+plot(w,b);
+figure();
+plot(w,a);
